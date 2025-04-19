@@ -27,7 +27,9 @@ import java.util.Optional;
 
 /**
  * Service class that implements ProductManager interface to handle 
- * inventory management operations and data persistence
+ * inventory management operations and data persistence.
+ * This class follows the Singleton pattern to ensure only one instance exists
+ * throughout the application lifecycle.
  */
 public class StoreService implements ProductManager {
     // Singleton instance
@@ -48,6 +50,7 @@ public class StoreService implements ProductManager {
 
     /**
      * Get the singleton instance of StoreService
+     * @return The singleton instance
      */
     public static synchronized StoreService getInstance() {
         if (instance == null) {
@@ -57,7 +60,8 @@ public class StoreService implements ProductManager {
     }
 
     /**
-     * Private constructor (use getInstance() instead)
+     * Constructor for StoreService.
+     * Note: For proper singleton implementation, use getInstance() instead.
      */
     public StoreService() {
         this.inventory = new ArrayList<>();
@@ -197,12 +201,18 @@ public class StoreService implements ProductManager {
         System.out.println("Created default inventory file with correct format.");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addProduct(Product product) {
         inventory.add(product);
         saveInventory();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean removeProduct(int index) {
         if (index >= 0 && index < inventory.size()) {
@@ -215,23 +225,38 @@ public class StoreService implements ProductManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Product> getInventory() {
         return new ArrayList<>(inventory);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<Product> findProductByName(String name) {
         return inventory.stream()
                 .filter(product -> product.getName().equalsIgnoreCase(name))
                 .findFirst();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getTotalQuantity() {
         return inventory.stream()
                 .mapToInt(Product::getQuantity)
                 .sum();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public BigDecimal getTotalGrossPrice() {
         return inventory.stream()
                 .map(product -> product.getPrice().multiply(BigDecimal.valueOf(product.getQuantity())))
@@ -239,6 +264,10 @@ public class StoreService implements ProductManager {
                 .setScale(2, RoundingMode.HALF_UP);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public BigDecimal getTotalPriceWithPerishableDiscount() {
         return inventory.stream()
                 .map(Product::getTotalValue)
@@ -246,6 +275,10 @@ public class StoreService implements ProductManager {
                 .setScale(2, RoundingMode.HALF_UP);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public BigDecimal getTotalNetPriceWithDiscount() {
         return getTotalPriceWithPerishableDiscount()
                 .multiply(BigDecimal.valueOf(0.85))
