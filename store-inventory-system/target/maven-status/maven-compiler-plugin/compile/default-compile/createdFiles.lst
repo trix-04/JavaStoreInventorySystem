@@ -1,0 +1,14 @@
+com\store\model\Product.class
+com\store\AppLauncher.class
+com\store\gui\InventoryMenuBar.class
+com\store\service\StoreService.class
+com\store\gui\InventoryApp$1.class
+com\store\gui\InventoryApp$2.class
+com\store\model\PerishableProduct.class
+com\store\gui\InventoryApp$4.class
+module-info.class
+com\store\gui\InventoryApp$3.class
+com\store\Main.class
+com\store\gui\InventoryController.class
+com\store\model\App.class
+com\store\gui\InventoryApp.class

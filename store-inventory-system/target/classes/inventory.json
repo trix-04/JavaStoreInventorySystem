@@ -1,0 +1,80 @@
+[
+  {
+    "type": "perishable",
+    "name": "Apples",
+    "price": 1.99,
+    "quantity": 50,
+    "discount": 0.05,
+    "expirationDate": "2025-04-25"
+  },
+  {
+    "type": "perishable",
+    "name": "Bananas",
+    "price": 0.89,
+    "quantity": 40,
+    "discount": 0.0,
+    "expirationDate": "2025-04-20"
+  },
+  {
+    "type": "perishable",
+    "name": "Strawberries",
+    "price": 3.49,
+    "quantity": 20,
+    "discount": 0.1,
+    "expirationDate": "2025-04-19"
+  },
+  {
+    "type": "perishable",
+    "name": "Tomatoes",
+    "price": 2.29,
+    "quantity": 30,
+    "discount": 0.0,
+    "expirationDate": "2025-04-24"
+  },
+  {
+    "type": "perishable",
+    "name": "Lettuce",
+    "price": 1.79,
+    "quantity": 15,
+    "discount": 0.05,
+    "expirationDate": "2025-04-18"
+  },
+  {
+    "type": "perishable",
+    "name": "Cucumbers",
+    "price": 0.99,
+    "quantity": 25,
+    "discount": 0.0,
+    "expirationDate": "2025-04-23"
+  },
+  {
+    "type": "perishable",
+    "name": "Broccoli",
+    "price": 2.49,
+    "quantity": 18,
+    "discount": 0.05,
+    "expirationDate": "2025-04-21"
+  },
+  {
+    "type": "perishable",
+    "name": "Grapes",
+    "price": 4.99,
+    "quantity": 12,
+    "discount": 0.1,
+    "expirationDate": "2025-04-19"
+  },
+  {
+    "type": "product",
+    "name": "Potatoes",
+    "price": 0.79,
+    "quantity": 60,
+    "discount": 0.0
+  },
+  {
+    "type": "product",
+    "name": "Onions",
+    "price": 0.89,
+    "quantity": 45,
+    "discount": 0.05
+  }
+]

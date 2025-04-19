@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.store.gui.InventoryController"
+      prefHeight="600.0" prefWidth="800.0"
+      spacing="20"
+      styleClass="main-container">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <Label text="Inventory Management System" styleClass="header-label"/>
+    
+    <!-- Summary Section -->
+    <GridPane styleClass="summary-section" hgap="10" vgap="10">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        
+        <Label text="Total Quantity:" styleClass="summary-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label fx:id="totalQuantityLabel" text="0" styleClass="summary-value" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        
+        <Label text="Total Gross Price:" styleClass="summary-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Label fx:id="totalGrossPriceLabel" text="$0.00" styleClass="summary-value" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        
+        <Label text="Total Price With Perishable Discount:" styleClass="summary-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label fx:id="totalPerishableDiscountLabel" text="$0.00" styleClass="summary-value" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        
+        <Label text="Total Price with additional 15% discount:" styleClass="summary-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Label fx:id="totalNetDiscountLabel" text="$0.00" styleClass="summary-value" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    </GridPane>
+    
+    <!-- Inventory Section -->
+    <VBox fx:id="inventorySection" spacing="10" styleClass="inventory-section">
+        <Label text="Inventory" styleClass="section-header"/>
+        
+        <!-- Search and Controls -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button fx:id="toggleInventoryButton" text="Hide Inventory" onAction="#toggleInventoryVisibility"/>
+            <TextField fx:id="searchField" promptText="Search Product Name" HBox.hgrow="ALWAYS"/>
+            <Button text="Search" onAction="#searchProducts"/>
+            <Button text="Add Product" styleClass="add-button"/>
+        </HBox>
+        
+        <!-- Add Product Form -->
+        <GridPane hgap="10" vgap="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0"/>
+            </columnConstraints>
+            
+            <TextField fx:id="nameField" promptText="Product Name" GridPane.columnIndex="0"/>
+            <TextField fx:id="priceField" promptText="Price" GridPane.columnIndex="1"/>
+            <TextField fx:id="quantityField" promptText="Quantity" GridPane.columnIndex="2"/>
+            <HBox spacing="5" alignment="CENTER_LEFT" GridPane.columnIndex="3">
+                <CheckBox fx:id="perishableCheckbox" text="Perishable"/>
+            </HBox>
+            
+            <DatePicker fx:id="expirationDatePicker" promptText="mm/dd/yyyy" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="discountField" promptText="Discount (%)" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Button text="Add Product" onAction="#addProduct" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
+        </GridPane>
+        
+        <!-- Product List -->
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+            <FlowPane fx:id="inventoryContainer" hgap="10" vgap="10"/>
+        </ScrollPane>
+    </VBox>
+</VBox>

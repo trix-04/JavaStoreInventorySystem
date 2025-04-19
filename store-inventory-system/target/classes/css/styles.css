@@ -1,0 +1,72 @@
+/* Main Styles */
+.main-container {
+    -fx-background-color: #2d2d2d;
+}
+
+/* Header */
+.header-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Summary Section */
+.summary-section {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.summary-label {
+    -fx-font-weight: bold;
+}
+
+.summary-value {
+    -fx-font-weight: bold;
+}
+
+/* Inventory Section */
+.inventory-section {
+    -fx-background-color: #3d3d3d;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.section-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Product Cards */
+.product-card {
+    -fx-background-color: #4d4d4d;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 0);
+    -fx-min-width: 220px;
+    -fx-max-width: 220px;
+}
+
+.product-card Label {
+    -fx-text-fill: white;
+}
+
+/* Buttons */
+Button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+Button:hover {
+    -fx-background-color: #0069d9;
+}
+
+.add-button {
+    -fx-background-color: #28a745;
+}
+
+.add-button:hover {
+    -fx-background-color: #218838;
+}
