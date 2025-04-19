@@ -31,6 +31,9 @@ public class AppLauncher {
         // Register shutdown hook to ensure clean exit in all scenarios
         registerShutdownHook();
         
+        // Configure JavaFX module path if needed
+        configureJavaFxModulePath();
+        
         // Launch in console mode if requested, otherwise try GUI
         if (shouldRunInConsoleMode(args)) {
             System.out.println("Console mode requested. Starting console application...");
@@ -45,6 +48,51 @@ public class AppLauncher {
                 launchConsoleMode(new String[]{"console"});
             }
         }
+    }
+    
+    /**
+     * Configure JavaFX module path programmatically if not already set
+     */
+    private static void configureJavaFxModulePath() {
+        // Check if JavaFX module path is already configured
+        if (System.getProperty("javafx.module.path") != null) {
+            System.out.println("JavaFX module path already configured: " + System.getProperty("javafx.module.path"));
+            return;
+        }
+        
+        // Try to find JavaFX SDK in common locations
+        String[] possibleJavaFxPaths = {
+            // Check user directory
+            Paths.get(System.getProperty("user.dir"), "javafx-sdk", "lib").toString(),
+            // Check relative paths
+            Paths.get("javafx-sdk", "lib").toString(),
+            Paths.get("..", "javafx-sdk", "lib").toString(),
+            // Check Maven paths
+            System.getProperty("user.home") + "/.m2/repository/org/openjfx"
+        };
+        
+        for (String path : possibleJavaFxPaths) {
+            File dir = new File(path);
+            if (dir.exists() && dir.isDirectory()) {
+                // Look for JavaFX JAR files
+                File[] files = dir.listFiles((d, name) -> name.startsWith("javafx") && name.endsWith(".jar"));
+                if (files != null && files.length > 0) {
+                    System.out.println("Found JavaFX libraries at: " + path);
+                    System.setProperty("javafx.module.path", path);
+                    
+                    // Set the module additions if not already set
+                    if (System.getProperty("javafx.modules") == null) {
+                        System.setProperty("javafx.modules", "javafx.controls,javafx.fxml");
+                        System.out.println("Set JavaFX modules: javafx.controls,javafx.fxml");
+                    }
+                    
+                    return;
+                }
+            }
+        }
+        
+        System.out.println("JavaFX module path not found automatically. If you encounter JavaFX errors, run with:");
+        System.out.println("--module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml");
     }
     
     private static void logSystemInfo() {
@@ -215,13 +263,16 @@ public class AppLauncher {
                 createInventoryBackup();
                 refreshUserInventoryFromTemplate();
                 // Re-initialize StoreService to reload the refreshed data
-                service.loadInventory(); // Call loadInventory directly rather than reassigning
+                service.loadInventory(); // Reload inventory data after refresh
             }
             
             System.out.println("Starting GUI application...");
             
             // Set up JavaFX exit handler for clean shutdown
             Platform.setImplicitExit(true);
+            
+            // Check for JavaFX module configuration before launching
+            checkJavaFxConfiguration();
             
             // Launch the GUI application
             System.out.println("Launching JavaFX application...");
@@ -231,6 +282,28 @@ public class AppLauncher {
             System.err.println("Falling back to console mode...");
             e.printStackTrace();
             launchConsoleMode(args);
+        }
+    }
+    
+    /**
+     * Verify JavaFX configuration before launching the application
+     */
+    private static void checkJavaFxConfiguration() {
+        try {
+            // Verify JavaFX classes are accessible
+            Class.forName("javafx.scene.Scene");
+            Class.forName("javafx.fxml.FXMLLoader");
+            
+            // Check if modules are properly configured by testing a simple JavaFX operation
+            if (System.getProperty("javafx.module.path") == null) {
+                System.out.println("WARNING: JavaFX module path not explicitly set. This may cause issues.");
+                System.out.println("If you encounter 'Unsupported JavaFX configuration' errors, use:");
+                System.out.println("java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar your-app.jar");
+            }
+        } catch (ClassNotFoundException e) {
+            System.err.println("ERROR: JavaFX classes not found. Please check your module configuration.");
+            System.err.println("Required JavaFX modules: javafx.controls, javafx.fxml");
+            throw new RuntimeException("JavaFX configuration error: " + e.getMessage(), e);
         }
     }
     
