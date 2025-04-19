@@ -25,7 +25,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class StoreService {
+/**
+ * Service class that implements ProductManager interface to handle 
+ * inventory management operations and data persistence
+ */
+public class StoreService implements ProductManager {
     // Singleton instance
     private static StoreService instance;
 
@@ -193,20 +197,25 @@ public class StoreService {
         System.out.println("Created default inventory file with correct format.");
     }
 
+    @Override
     public void addProduct(Product product) {
         inventory.add(product);
         saveInventory();
     }
 
-    public void removeProduct(int index) {
+    @Override
+    public boolean removeProduct(int index) {
         if (index >= 0 && index < inventory.size()) {
             inventory.remove(index);
             saveInventory();
+            return true;
         } else {
             System.err.println("Invalid product index: " + index);
+            return false;
         }
     }
 
+    @Override
     public List<Product> getInventory() {
         return new ArrayList<>(inventory);
     }

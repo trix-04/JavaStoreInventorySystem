@@ -134,8 +134,6 @@ classDiagram
 
 ## User Interface Options
 
-
-
 ### GUI Screenshot
 ![GUI Screenshot](images/gui-screenshot.png)
 
@@ -212,6 +210,47 @@ The application includes comprehensive error handling for:
 ### GUI Screenshot
 ![GUI Screenshot](images/gui-screenshot.png)
 
+## Development Guide
+
+### Code Organization
+- **Model classes** (`Product`, `PerishableProduct`) focus on data structure and business logic
+- **Service classes** implement interfaces and handle all operations on models
+- **UI classes** are kept separate from business logic to ensure separation of concerns
+
+### Commenting Standards
+- All classes should include a descriptive class-level JavaDoc comment
+- Public methods must have JavaDoc comments describing:
+  - Purpose of the method
+  - Parameter descriptions
+  - Return value description
+  - Any exceptions thrown
+- Complex algorithms should include inline comments explaining the approach
+
+### Testing Guidelines
+- Unit tests should be written for all business logic
+- Each test method should focus on testing one specific behavior
+- Use descriptive method names that explain what is being tested
+- Follow the Arrange-Act-Assert pattern for test structure
+
+### Git Workflow
+```bash
+# Clone the repository
+git clone https://github.com/username/JavaStoreInventorySystem.git
+
+# Create a feature branch
+git checkout -b feature/name-of-feature
+
+# Make changes and commit
+git add .
+git commit -m "Descriptive commit message"
+
+# Push changes to remote
+git push origin feature/name-of-feature
+
+# Create pull request on GitHub
+```
+
+## Project Contributors
 Author 1:   [Harry Joseph](https://github.com/hJoseph777)
 Author 2:   [Trish](https://github.com/trishh)
 
